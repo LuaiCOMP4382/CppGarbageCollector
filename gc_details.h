@@ -14,7 +14,7 @@ class PtrDetails {
             refcount = 1;
             memPtr = ptr;
             arraySize = size;
-            isArray == size > 0;
+            isArray = size > 0;
         }
 };
 

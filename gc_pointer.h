@@ -154,7 +154,7 @@ bool Pointer<T, size>::collect() {
                 continue;
             
             // Remove unused entry from refContainer.
-            refContainer.remove(*p);
+            refContainer.erase(p);
 
             // Free memory unless the Pointer is null.
             if (p->memPtr != nullptr)
@@ -179,6 +179,7 @@ T *Pointer<T, size>::operator=(T *t) {
     typename std::list<PtrDetails<T> >::iterator ptrInfo = findPtrInfo(addr);
     ptrInfo->refcount--;
     
+    ptrInfo = findPtrInfo(t);
     if (ptrInfo == refContainer.end()) {
         PtrDetails<T> pointerDetails(t, size);
         refContainer.push_back(pointerDetails);
