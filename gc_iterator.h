@@ -16,8 +16,7 @@ class OutOfRangeExc
 // from being recycled.
 //
 template <class T>
-class Iter
-{
+class Iter {
     T *ptr;
     // current pointer value
     T *end;
@@ -26,13 +25,12 @@ class Iter
     T *begin;        // points to start of allocated array
     unsigned length; // length of sequence
   public:
-    Iter()
-    {
+    Iter() {
         ptr = end = begin = NULL;
         length = 0;
     }
-    Iter(T *p, T *first, T *last)
-    {
+    
+    Iter(T *p, T *first, T *last) {
         ptr = p;
         end = last;
         begin = first;
@@ -43,42 +41,36 @@ class Iter
     unsigned size() { return length; }
     // Return value pointed to by ptr.
     // Do not allow out-of-bounds access.
-    T &operator*()
-    {
+    T &operator*() {
         if ((ptr >= end) || (ptr < begin))
             throw OutOfRangeExc();
         return *ptr;
     }
     // Return address contained in ptr.
     // Do not allow out-of-bounds access.
-    T *operator->()
-    {
+    T *operator->() {
         if ((ptr >= end) || (ptr < begin))
             throw OutOfRangeExc();
         return ptr;
     }
     // Prefix ++.
-    Iter operator++()
-    {
+    Iter operator++() {
         ptr++;
         return *this;
     }
     // Prefix --.
-    Iter operator--()
-    {
+    Iter operator--() {
         ptr--;
         return *this;
     }
     // Postfix ++.
-    Iter operator++(int notused)
-    {
+    Iter operator++(int notused) {
         T *tmp = ptr;
         ptr++;
         return Iter<T>(tmp, begin, end);
     }
     // Postfix --.
-    Iter operator--(int notused)
-    {
+    Iter operator--(int notused) {
         T *tmp = ptr;
         ptr--;
         return Iter<T>(tmp, begin, end);
@@ -86,52 +78,42 @@ class Iter
     // Return a reference to the object at the
     // specified index. Do not allow out-of-bounds
     // access.
-    T &operator[](int i)
-    {
+    T &operator[](int i) {
         if ((i < 0) || (i >= (end - begin)))
             throw OutOfRangeExc();
         return ptr[i];
     }
     // Define the relational operators.
-    bool operator==(Iter op2)
-    {
+    bool operator==(Iter op2) {
         return ptr == op2.ptr;
     }
-    bool operator!=(Iter op2)
-    {
+    bool operator!=(Iter op2) {
         return ptr != op2.ptr;
     }
-    bool operator<(Iter op2)
-    {
+    bool operator<(Iter op2) {
         return ptr < op2.ptr;
     }
-    bool operator<=(Iter op2)
-    {
+    bool operator<=(Iter op2) {
         return ptr <= op2.ptr;
     }
-    bool operator>(Iter op2)
-    {
+    bool operator>(Iter op2) {
         return ptr > op2.ptr;
     }
-    bool operator>=(Iter op2)
-    {
+    bool operator>=(Iter op2) {
         return ptr >= op2.ptr;
     }
     // Subtract an integer from an Iter.
-    Iter operator-(int n)
-    {
+    Iter operator-(int n) {
         ptr -= n;
         return *this;
     }
     // Add an integer to an Iter.
-    Iter operator+(int n)
-    {
+    Iter operator+(int n) {
         ptr += n;
         return *this;
     }
     // Return number of elements between two Iters.
-    int operator-(Iter<T> &itr2)
-    {
+    int operator-(Iter<T> &itr2) {
         return ptr - itr2.ptr;
     }
 };
